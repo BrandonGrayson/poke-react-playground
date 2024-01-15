@@ -6,6 +6,7 @@
     "start": "next start"
   },
   "dependencies": {
+    "@mui/x-data-grid": "^6.18.7",
     "@reduxjs/toolkit": "1.9.5",
     "next": "latest",
     "react": "18.2.0",

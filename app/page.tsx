@@ -1,10 +1,11 @@
 /* Components */
 import { Counter } from "./components/Counter/Counter";
+import PokeTable from "./components/PokeTable/PokeTable";
 
 export default function IndexPage() {
-  return <Counter />;
+  return <PokeTable />;
 }
 
 export const metadata = {
-  title: "Redux Toolkit",
+  title: "Poke React Playground",
 };
