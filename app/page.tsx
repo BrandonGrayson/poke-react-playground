@@ -1,9 +1,9 @@
 /* Components */
-import { Counter } from "./components/Counter/Counter";
-import PokeTable from "./components/PokeTable/PokeTable";
+import Link from "next/link";
+import PokeDex from "./components/PokeTable/PokeDex";
 
 export default function IndexPage() {
-  return <PokeTable />;
+  return <Link href="/pokedex">PokeDex</Link>;
 }
 
 export const metadata = {
