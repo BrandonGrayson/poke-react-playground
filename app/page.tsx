@@ -1,9 +1,15 @@
 /* Components */
 import Link from "next/link";
-import PokeDex from "./components/PokeTable/PokeDex";
 
 export default function IndexPage() {
-  return <Link href="/pokedex">PokeDex</Link>;
+  return (
+    <>
+      <h3>Homepage</h3>
+      <Link href="/pokedex">PokeDex</Link>
+      <Link href="/login">Login</Link>
+    </>
+
+  );
 }
 
 export const metadata = {
