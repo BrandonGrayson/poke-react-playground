@@ -1,12 +1,13 @@
 'use client'
+
 import { Box, Typography, TextField, Button } from "@mui/material"
 import { useState } from "react"
 
-export default async function Login() {
+export default async function createUser() {
     const [userName, setUserName] = useState("")
     const [password, setPassword] = useState("")
 
-    const userLogin = () => {
+    const newUser = () => {
         try {
             const response = fetch("/login", {
                 method: 'POST',
@@ -22,14 +23,14 @@ export default async function Login() {
             console.log('error', error)
         }
     }
-    return (
+    return(
         <Box sx={{ height: '100vh', width: '100vw', display: 'flex', justifyContent: "center" }}>
             <Box sx={{ display: 'flex', flexDirection: 'column', marginTop: '200px',}}>
                 <Typography
                 fontSize="4em"
                 fontWeight="bold"
                  sx={{ marginRight: "auto", marginLeft: "auto",}}>
-                    Login
+                    Welcome! Create a New Account!
                 </Typography>
                 <TextField
                  id="standard-basic" 
@@ -50,11 +51,11 @@ export default async function Login() {
                  <Button 
                  variant="contained" 
                  sx={{width: '40px', marginTop: '30px'}}
-                 onClick={userLogin}
+                 onClick={newUser}
                  >Login
                  </Button>
             </Box>
 
         </Box>
     )
-}
+} 
