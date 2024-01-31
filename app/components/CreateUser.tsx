@@ -1,35 +1,22 @@
 'use client'
+
 import { Box, Typography, TextField, Button } from "@mui/material"
 import { useState } from "react"
+import { User } from "../schemas/schemas"
 
-export default function Login() {
+export default function CreateUser({newUser}: {newUser: (userName: string, password: string) => Promise<User | undefined>}) {
     const [userName, setUserName] = useState("")
     const [password, setPassword] = useState("")
 
-    const userLogin = () => {
-        try {
-            const response = fetch("", {
-                method: 'POST',
-                mode: 'cors',
-                cache: 'default',
-                credentials: 'omit',
-                headers: {
-                    "Content-Type": "application/json",
-                },
-                body: JSON.stringify({userName, password})
-            })
-        } catch(error) {
-            console.log('error', error)
-        }
-    }
-    return (
+
+    return(
         <Box sx={{ height: '100vh', width: '100vw', display: 'flex', justifyContent: "center" }}>
             <Box sx={{ display: 'flex', flexDirection: 'column', marginTop: '200px',}}>
                 <Typography
                 fontSize="4em"
                 fontWeight="bold"
                  sx={{ marginRight: "auto", marginLeft: "auto",}}>
-                    Login
+                    Welcome! Create a New Account!
                 </Typography>
                 <TextField
                  id="standard-basic" 
@@ -50,11 +37,11 @@ export default function Login() {
                  <Button 
                  variant="contained" 
                  sx={{width: '40px', marginTop: '30px'}}
-                 onClick={userLogin}
+                 onClick={() => newUser(userName, password)}
                  >Login
                  </Button>
             </Box>
 
         </Box>
     )
-}
+} 

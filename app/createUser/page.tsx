@@ -1,15 +1,10 @@
-'use client'
+import CreateUser from "../components/CreateUser"
+import { User } from "../schemas/schemas"
 
-import { Box, Typography, TextField, Button } from "@mui/material"
-import { useState } from "react"
-
-export default async function createUser() {
-    const [userName, setUserName] = useState("")
-    const [password, setPassword] = useState("")
-
-    const newUser = () => {
+export default async function Page() {
+    const newUser = async (userName: string, password: string): Promise<User | undefined> => {
         try {
-            const response = fetch("/login", {
+            const response = await fetch("http://127.0.0.1:8000/createUser", {
                 method: 'POST',
                 mode: 'cors',
                 cache: 'default',
@@ -19,43 +14,16 @@ export default async function createUser() {
                 },
                 body: JSON.stringify({userName, password})
             })
+
+            const data = response.json()
+
+            return data
         } catch(error) {
             console.log('error', error)
         }
     }
-    return(
-        <Box sx={{ height: '100vh', width: '100vw', display: 'flex', justifyContent: "center" }}>
-            <Box sx={{ display: 'flex', flexDirection: 'column', marginTop: '200px',}}>
-                <Typography
-                fontSize="4em"
-                fontWeight="bold"
-                 sx={{ marginRight: "auto", marginLeft: "auto",}}>
-                    Welcome! Create a New Account!
-                </Typography>
-                <TextField
-                 id="standard-basic" 
-                 label="UserName" 
-                 variant="standard" 
-                 value={userName} 
-                 onChange={(event) => setUserName(event.target.value)} 
-                 sx={{marginTop: '30px', width: '40vw'}}
-                 />
-                <TextField
-                 id="standard-basic" 
-                 label="Password" 
-                 variant="standard" 
-                 value={password} 
-                 onChange={(event) => setPassword(event.target.value)} 
-                 sx={{marginTop: '30px'}}
-                 />
-                 <Button 
-                 variant="contained" 
-                 sx={{width: '40px', marginTop: '30px'}}
-                 onClick={newUser}
-                 >Login
-                 </Button>
-            </Box>
 
-        </Box>
+    return (
+        <CreateUser newUser={newUser} />
     )
-} 
+}

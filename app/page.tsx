@@ -7,6 +7,7 @@ export default function IndexPage() {
       <h3>Homepage</h3>
       <Link href="/pokedex">PokeDex</Link>
       <Link href="/login">Login</Link>
+      <Link href="/createUser">Create User</Link>
     </>
 
   );
