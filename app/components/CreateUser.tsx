@@ -14,7 +14,7 @@ export default function CreateUser({newUser}: {newUser: (userName: string, passw
                 <Typography
                 fontSize="4em"
                 fontWeight="bold"
-                 sx={{ marginRight: "auto", marginLeft: "auto",}}>
+                 sx={{ }}>
                     Welcome! Create a New Account!
                 </Typography>
                 <TextField
@@ -31,7 +31,7 @@ export default function CreateUser({newUser}: {newUser: (userName: string, passw
                  variant="standard" 
                  value={password} 
                  onChange={(event) => setPassword(event.target.value)} 
-                 sx={{marginTop: '30px'}}
+                 sx={{marginTop: '30px', width: '40vw'}}
                  />
                  <Button 
                  variant="contained" 
