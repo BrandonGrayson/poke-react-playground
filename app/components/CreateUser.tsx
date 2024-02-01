@@ -8,7 +8,6 @@ export default function CreateUser({newUser}: {newUser: (userName: string, passw
     const [userName, setUserName] = useState("")
     const [password, setPassword] = useState("")
 
-
     return(
         <Box sx={{ height: '100vh', width: '100vw', display: 'flex', justifyContent: "center" }}>
             <Box sx={{ display: 'flex', flexDirection: 'column', marginTop: '200px',}}>
@@ -41,7 +40,6 @@ export default function CreateUser({newUser}: {newUser: (userName: string, passw
                  >Login
                  </Button>
             </Box>
-
         </Box>
     )
 } 
