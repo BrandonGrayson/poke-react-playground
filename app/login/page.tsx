@@ -3,7 +3,7 @@ import { Box, Typography, TextField, Button } from "@mui/material"
 import { useState } from "react"
 
 export default function Login() {
-    const [userName, setUserName] = useState("")
+    const [email, setEmail] = useState("")
     const [password, setPassword] = useState("")
 
     const userLogin = () => {
@@ -16,7 +16,7 @@ export default function Login() {
                 headers: {
                     "Content-Type": "application/json",
                 },
-                body: JSON.stringify({userName, password})
+                body: JSON.stringify({ email, password})
             })
         } catch(error) {
             console.log('error', error)
@@ -35,8 +35,8 @@ export default function Login() {
                  id="standard-basic" 
                  label="UserName" 
                  variant="standard" 
-                 value={userName} 
-                 onChange={(event) => setUserName(event.target.value)} 
+                 value={email} 
+                 onChange={(event) => setEmail(event.target.value)} 
                  sx={{marginTop: '30px', width: '40vw'}}
                  />
                 <TextField

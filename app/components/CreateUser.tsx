@@ -4,8 +4,8 @@ import { Box, Typography, TextField, Button } from "@mui/material"
 import { useState } from "react"
 import { User } from "../schemas/schemas"
 
-export default function CreateUser({newUser}: {newUser: (userName: string, password: string) => Promise<User | undefined>}) {
-    const [userName, setUserName] = useState("")
+export default function CreateUser({newUser}: {newUser: (email: string, password: string) => Promise<User | undefined>}) {
+    const [email, setEmail] = useState("")
     const [password, setPassword] = useState("")
 
     return(
@@ -19,10 +19,10 @@ export default function CreateUser({newUser}: {newUser: (userName: string, passw
                 </Typography>
                 <TextField
                  id="standard-basic" 
-                 label="UserName" 
+                 label="Email" 
                  variant="standard" 
-                 value={userName} 
-                 onChange={(event) => setUserName(event.target.value)} 
+                 value={email} 
+                 onChange={(event) => setEmail(event.target.value)} 
                  sx={{marginTop: '30px', width: '40vw'}}
                  />
                 <TextField
@@ -36,7 +36,7 @@ export default function CreateUser({newUser}: {newUser: (userName: string, passw
                  <Button 
                  variant="contained" 
                  sx={{width: '40px', marginTop: '30px'}}
-                 onClick={() => newUser(userName, password)}
+                 onClick={() => newUser(email, password)}
                  >Login
                  </Button>
             </Box>

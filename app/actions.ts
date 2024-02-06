@@ -1,7 +1,7 @@
 "use server"
 import { User } from "./schemas/schemas"
 
-export const newUser = async (userName: string, password: string): Promise<User | undefined> => {
+export const newUser = async (email: string, password: string): Promise<User | undefined> => {
     try {
         const response = await fetch("http://127.0.0.1:8000/createUser", {
             method: 'POST',
@@ -11,7 +11,7 @@ export const newUser = async (userName: string, password: string): Promise<User 
             headers: {
                 "Content-Type": "application/json",
             },
-            body: JSON.stringify({userName, password})
+            body: JSON.stringify({email, password})
         })
 
         const data = response.json()
