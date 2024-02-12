@@ -1,7 +1,7 @@
 "use server"
-import { User } from "./schemas/schemas"
+import { User, AccessToken } from "./schemas/schemas"
 
-export const newUser = async (email: string, password: string): Promise<User | undefined> => {
+export const newUser = async (username: string, password: string): Promise<User | undefined> => {
     try {
         const response = await fetch("http://127.0.0.1:8000/createUser", {
             method: 'POST',
@@ -11,7 +11,7 @@ export const newUser = async (email: string, password: string): Promise<User | u
             headers: {
                 "Content-Type": "application/json",
             },
-            body: JSON.stringify({email, password})
+            body: JSON.stringify({username, password})
         })
 
         const data = response.json()
@@ -20,4 +20,26 @@ export const newUser = async (email: string, password: string): Promise<User | u
     } catch(error) {
         console.log('error', error)
     }
+}
+
+export const userLogin = async (username: string, password: string): Promise<AccessToken | undefined> => {
+    try {
+        const response = await fetch("http://127.0.0.1:8000/login", {
+            method: 'POST',
+            mode: 'cors',
+            cache: 'default',
+            credentials: 'omit',
+            headers: {
+                "Content-Type": "application/json",
+            },
+            body: JSON.stringify({ username, password})
+        })
+
+        const access_token: AccessToken = await response.json()
+
+        return access_token
+    } catch(error) {
+        console.log('error', error)
+    }
+
 }

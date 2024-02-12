@@ -1,27 +1,12 @@
 'use client'
 import { Box, Typography, TextField, Button } from "@mui/material"
 import { useState } from "react"
+import { userLogin } from "../actions"
 
 export default function Login() {
-    const [email, setEmail] = useState("")
+    const [username, setUserName] = useState("")
     const [password, setPassword] = useState("")
 
-    const userLogin = () => {
-        try {
-            const response = fetch("", {
-                method: 'POST',
-                mode: 'cors',
-                cache: 'default',
-                credentials: 'omit',
-                headers: {
-                    "Content-Type": "application/json",
-                },
-                body: JSON.stringify({ email, password})
-            })
-        } catch(error) {
-            console.log('error', error)
-        }
-    }
     return (
         <Box sx={{ height: '100vh', width: '100vw', display: 'flex', justifyContent: "center" }}>
             <Box sx={{ display: 'flex', flexDirection: 'column', marginTop: '200px',}}>
@@ -35,8 +20,8 @@ export default function Login() {
                  id="standard-basic" 
                  label="UserName" 
                  variant="standard" 
-                 value={email} 
-                 onChange={(event) => setEmail(event.target.value)} 
+                 value={username} 
+                 onChange={(event) => setUserName(event.target.value)} 
                  sx={{marginTop: '30px', width: '40vw'}}
                  />
                 <TextField
@@ -50,7 +35,7 @@ export default function Login() {
                  <Button 
                  variant="contained" 
                  sx={{width: '40px', marginTop: '30px'}}
-                 onClick={userLogin}
+                 onClick={() => userLogin(username, password)}
                  >Login
                  </Button>
             </Box>

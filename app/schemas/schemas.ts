@@ -1,4 +1,9 @@
 export interface User {
-    email: string,
+    username: string,
     password: string
+}
+
+export interface AccessToken {
+    access_token: string,
+    token_type: string
 }
