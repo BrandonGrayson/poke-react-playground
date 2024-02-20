@@ -1,5 +1,6 @@
 "use server"
 import { User, AccessToken } from "./schemas/schemas"
+import { cookies } from 'next/headers'
 
 export const newUser = async (username: string, password: string): Promise<User | undefined> => {
     try {
@@ -22,7 +23,7 @@ export const newUser = async (username: string, password: string): Promise<User 
     }
 }
 
-export const userLogin = async (username: string, password: string): Promise<AccessToken | undefined> => {
+export const userLogin = async (username: string, password: string) => {
     try {
         const response = await fetch("http://127.0.0.1:8000/login", {
             method: 'POST',
@@ -37,7 +38,11 @@ export const userLogin = async (username: string, password: string): Promise<Acc
 
         const access_token: AccessToken = await response.json()
 
-        return access_token
+        console.log('access Token', access_token)
+
+        const session = access_token.access_token
+
+        cookies().set('session', session, {httpOnly: true})
     } catch(error) {
         console.log('error', error)
     }
