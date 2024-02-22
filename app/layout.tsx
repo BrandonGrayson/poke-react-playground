@@ -5,7 +5,6 @@ export default function RootLayout(props: React.PropsWithChildren) {
   return (
       <html lang="en">
         <body>
-          <Nav />
           <section>
             <main>{props.children}</main>
           </section>
