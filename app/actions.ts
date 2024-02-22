@@ -1,6 +1,7 @@
 "use server"
 import { User, AccessToken } from "./schemas/schemas"
 import { cookies } from 'next/headers'
+import { Alert } from "@mui/material"
 
 export const newUser = async (username: string, password: string): Promise<User | undefined> => {
     try {
@@ -36,15 +37,22 @@ export const userLogin = async (username: string, password: string) => {
             body: JSON.stringify({ username, password})
         })
 
-        const access_token: AccessToken = await response.json()
+        if (!response.ok) {
+            throw Error('Could not fetch the data for that resource')
+        }
 
-        console.log('access Token', access_token)
+        if (response.ok) {
+            const access_token: AccessToken = await response.json()
 
-        const session = access_token.access_token
-
-        cookies().set('session', session, {httpOnly: true})
+            console.log('access Token', access_token)
+    
+            const session = access_token.access_token
+    
+            cookies().set('session', session, {httpOnly: true})
+        }
     } catch(error) {
-        console.log('error', error)
+        console.log(error)
+        
     }
 
 }
