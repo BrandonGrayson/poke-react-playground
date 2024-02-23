@@ -5,7 +5,6 @@ import { userLogin } from "../actions"
 import { redirect } from "next/navigation"
 import { Nav } from "../components/Nav"
 
-
 export default function Login() {
     const [username, setUserName] = useState("")
     const [password, setPassword] = useState("")
