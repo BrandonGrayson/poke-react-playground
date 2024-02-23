@@ -4,9 +4,10 @@ import { Box, Typography, TextField, Button } from "@mui/material"
 import { useState } from "react"
 import { User } from "../schemas/schemas"
 
-export default function CreateUser({newUser}: {newUser: (username: string, password: string) => Promise<User | undefined>}) {
+export default function CreateUser({newUser}: {newUser: (username: string, password: string) => void}) {
     const [username, setUserName] = useState("")
     const [password, setPassword] = useState("")
+    const [inputError, setInputError] = useState(false)
 
     return(
         <Box sx={{ height: '100vh', width: '100vw', display: 'flex', justifyContent: "center" }}>
@@ -14,20 +15,25 @@ export default function CreateUser({newUser}: {newUser: (username: string, passw
                 <Typography
                 fontSize="4em"
                 fontWeight="bold"
-                 sx={{ }}>
+                 >
                     Welcome! Create a New Account!
                 </Typography>
                 <TextField
                  id="standard-basic" 
                  label="User Name" 
                  variant="standard" 
+                 required
                  value={username} 
+                 error={inputError}
                  onChange={(event) => setUserName(event.target.value)} 
                  sx={{marginTop: '30px', width: '40vw'}}
                  />
                 <TextField
                  id="standard-basic" 
                  label="Password" 
+                 required
+                 error={inputError}
+                 type="password"
                  variant="standard" 
                  value={password} 
                  onChange={(event) => setPassword(event.target.value)} 
@@ -36,7 +42,12 @@ export default function CreateUser({newUser}: {newUser: (username: string, passw
                  <Button 
                  variant="contained" 
                  sx={{width: '40px', marginTop: '30px'}}
-                 onClick={() => newUser(username, password)}
+                 onClick={() => {
+                    if (username === "" || password === "") {
+                        setInputError(true)
+                    }
+                    newUser(username, password)
+                 }}
                  >Login
                  </Button>
             </Box>

@@ -1,9 +1,8 @@
 "use server"
 import { User, AccessToken } from "./schemas/schemas"
 import { cookies } from 'next/headers'
-import { Alert } from "@mui/material"
 
-export const newUser = async (username: string, password: string): Promise<User | undefined> => {
+export const newUser = async (username: string, password: string) => {
     try {
         const response = await fetch("http://127.0.0.1:8000/createUser", {
             method: 'POST',
@@ -15,10 +14,10 @@ export const newUser = async (username: string, password: string): Promise<User 
             },
             body: JSON.stringify({username, password})
         })
-
-        const data = response.json()
-
-        return data
+        
+        if (!response.ok) {
+            throw Error('There was a problem creating your account')
+        }
     } catch(error) {
         console.log('error', error)
     }

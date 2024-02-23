@@ -17,7 +17,7 @@ export default function Error({ error, reset }: ErrorProps) {
     return (
         <>
             <Nav />
-            <Typography>There Was a problem with your Request</Typography>
+            <Typography>There was a problem with your login request. Either try to reset or navigate to one of the other pges </Typography>
             {
                 error.message ?? 
                 <Typography>{error.message}</Typography>
