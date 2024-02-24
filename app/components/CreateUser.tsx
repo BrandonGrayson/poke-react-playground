@@ -2,7 +2,6 @@
 
 import { Box, Typography, TextField, Button } from "@mui/material"
 import { useState } from "react"
-import { useRouter } from "next/router"
 
 export default function CreateUser({newUser}: {newUser: (username: string, password: string) => void}) {
     const [username, setUserName] = useState("")
