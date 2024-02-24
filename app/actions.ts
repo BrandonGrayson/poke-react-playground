@@ -1,6 +1,7 @@
 "use server"
-import { User, AccessToken } from "./schemas/schemas"
+import { AccessToken } from "./schemas/schemas"
 import { cookies } from 'next/headers'
+import { redirect } from "next/navigation"
 
 export const newUser = async (username: string, password: string) => {
     try {
@@ -18,6 +19,8 @@ export const newUser = async (username: string, password: string) => {
         if (!response.ok) {
             throw Error('There was a problem creating your account')
         }
+
+        redirect('/')
     } catch(error) {
         console.log('error', error)
     }
@@ -48,6 +51,8 @@ export const userLogin = async (username: string, password: string) => {
             const session = access_token.access_token
     
             cookies().set('session', session, {httpOnly: true})
+
+            redirect('/')
         }
     } catch(error) {
         console.log(error)

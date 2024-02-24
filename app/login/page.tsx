@@ -2,7 +2,7 @@
 import { Box, Typography, TextField, Button, Stack } from "@mui/material"
 import { useState } from "react"
 import { userLogin } from "../actions"
-import { redirect } from "next/navigation"
+
 
 export default function Login() {
     const [username, setUserName] = useState("")
@@ -23,7 +23,7 @@ export default function Login() {
                     setInputError(true)
                 }
                  userLogin(username, password) 
-                redirect('/')
+                
                 }}>
                 <Stack spacing={2}>
                 <TextField
