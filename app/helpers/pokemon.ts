@@ -1,4 +1,4 @@
-import { PokemonResults, RawPokemonResult } from "../schemas/pokemon";
+import { RawPokemonResult } from "../schemas/pokemon";
 
 export const getAllPokemon = async ():Promise<RawPokemonResult> => {
     const response = await fetch("https://pokeapi.co/api/v2/pokemon")

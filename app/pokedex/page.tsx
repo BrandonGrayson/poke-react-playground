@@ -9,7 +9,7 @@ export default async function Page() {
   console.log("data", results);
   return (
     <>
-      <PokeDex data={results} />
+      {/* <PokeDex data={results} /> */}
     </>
   );
 }
