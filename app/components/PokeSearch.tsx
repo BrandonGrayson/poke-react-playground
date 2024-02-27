@@ -1,13 +1,13 @@
 'use client'
 
-import { Button, Stack, TextField } from "@mui/material"
+import { Button, Stack, TextField, Typography } from "@mui/material"
 import { useState } from "react"
 
-export default function PokeSearch() {
+export default function PokeSearch() {  
     const [search, setSearch] = useState("")
 
     return (
-        <Stack spacing={2} sx={{ marginTop: '20px' }}>
+        <Stack spacing={2} sx={{ marginTop: '20px', width: '400px' }}>
             <TextField
                 value={search}
                 sx={{ width: '300px' }}

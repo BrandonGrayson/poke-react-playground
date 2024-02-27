@@ -2,7 +2,7 @@
 
 import { DataGrid, GridRowsProp, GridColDef } from "@mui/x-data-grid";
 import { useEffect, useState } from "react";
-import { Box } from "@mui/material";
+import { Box, Typography } from "@mui/material";
 import PokeSearch from "../PokeSearch";
 
 interface RawResults {
@@ -39,6 +39,7 @@ export default function PokeDex() {
 
   return (
     <>
+      <Typography>PokeDex</Typography>
     </>
     // <Box sx={{ width: 600, height: 600 }}>
     //   {/* <DataGrid rows={rows} columns={columns} /> */}

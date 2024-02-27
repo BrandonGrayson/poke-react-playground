@@ -1,15 +1,12 @@
-import { getAllPokemon } from "../helpers/pokemon";
+import PokeSearch from "../components/PokeSearch";
+import { Stack } from "@mui/material";
 import PokeDex from "../components/PokeTable/PokeDex";
 
-export default async function Page() {
-  const data = await getAllPokemon();
-
-  const { results } = data;
-
-  console.log("data", results);
+export default function Page() {
   return (
-    <>
-      {/* <PokeDex data={results} /> */}
-    </>
+    <Stack direction={{lg: 'row', md: 'row'}}>
+      <PokeSearch />
+      <PokeDex />
+    </Stack>
   );
 }

@@ -4,6 +4,7 @@ export default function PokeDexLayout({children}: {children: React.ReactNode}) {
     return (
         <>
             <Nav />
+            {children}
         </>
     )
 }

@@ -4,6 +4,7 @@ export default function IndexPage() {
   return (
     <>
     <Nav />
+    <p>Homepage</p>
     </>
   );
 }
