@@ -2,6 +2,7 @@
 
 import { Button, Stack, TextField, Typography } from "@mui/material"
 import { useState } from "react"
+import { searchPokemon } from "../actions"
 
 export default function PokeSearch() {  
     const [search, setSearch] = useState("")
@@ -15,7 +16,7 @@ export default function PokeSearch() {
                 label="Look Up Pokemon"
                 variant="outlined"
                 onChange={(event) => setSearch(event.target.value)} />
-            <Button sx={{ width: '200px' }} variant="contained">Poke Search</Button>
+            <Button sx={{ width: '200px' }} variant="contained" onClick={() => searchPokemon(search)}>Poke Search</Button>
         </Stack>
     )
 }

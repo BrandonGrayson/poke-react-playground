@@ -13,15 +13,15 @@ export const newUser = async (username: string, password: string) => {
             headers: {
                 "Content-Type": "application/json",
             },
-            body: JSON.stringify({username, password})
+            body: JSON.stringify({ username, password })
         })
-        
+
         if (!response.ok) {
             throw Error('There was a problem creating your account')
         }
 
         redirect('/')
-    } catch(error) {
+    } catch (error) {
         console.log('error', error)
     }
 }
@@ -36,7 +36,7 @@ export const userLogin = async (username: string, password: string) => {
             headers: {
                 "Content-Type": "application/json",
             },
-            body: JSON.stringify({ username, password})
+            body: JSON.stringify({ username, password })
         })
 
         if (!response.ok) {
@@ -47,17 +47,30 @@ export const userLogin = async (username: string, password: string) => {
             const access_token: AccessToken = await response.json()
 
             console.log('access Token', access_token)
-    
+
             const session = access_token.access_token
-    
-            cookies().set('session', session, {httpOnly: true})
+
+            cookies().set('session', session, { httpOnly: true })
 
             redirect('/')
         }
-    } catch(error) {
+    } catch (error) {
         console.log(error)
-        
+
     }
 
 }
 
+export const searchPokemon = async (pokemon: string) => {
+    try {
+        const response = await fetch(`https://pokeapi.co/api/v2/pokemon/${pokemon}/`)
+
+        const results = await response.json()
+
+        console.log('search results', results)
+
+        return results
+    } catch (error) {
+        console.log('error', error)
+    }
+}
