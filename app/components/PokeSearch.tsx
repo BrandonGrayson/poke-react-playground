@@ -13,8 +13,6 @@ export default function PokeSearch() {
         type: ''
     })
 
-    // console.log('pokemon', pokemon)
-
     return (
         <>
             <Card sx={{ maxWidth: 345 }}>
