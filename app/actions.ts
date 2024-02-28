@@ -2,6 +2,7 @@
 import { AccessToken } from "./schemas/schemas"
 import { cookies } from 'next/headers'
 import { redirect } from "next/navigation"
+import { PokemonResult } from "./schemas/pokemon"
 
 export const newUser = async (username: string, password: string) => {
     try {
@@ -65,11 +66,27 @@ export const searchPokemon = async (pokemon: string) => {
     try {
         const response = await fetch(`https://pokeapi.co/api/v2/pokemon/${pokemon}/`)
 
+        if (!response.ok) {
+            throw Error('There was a problem with your request')
+        }
+
         const results = await response.json()
 
-        console.log('search results', results)
+        console.log('results', results)
 
-        return results
+        // extract the needed fields, name, type, image
+        // create a type to represent the pokemon data I need returned from this api
+
+        const pokeData : PokemonResult = {
+            name: results.name,
+            type: results.types[0].type.name,
+            image: results.sprites.back_default
+        }
+
+        console.log('pokedata', pokeData)
+
+        return pokeData
+
     } catch (error) {
         console.log('error', error)
     }

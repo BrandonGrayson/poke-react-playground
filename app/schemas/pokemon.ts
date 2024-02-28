@@ -1,6 +1,5 @@
-export interface RawPokemonResult {
-    count: number
-    next: string
-    previous: string | null
-    results: []
+export interface PokemonResult {
+    name: string,
+    image: string,
+    type: string
 }
