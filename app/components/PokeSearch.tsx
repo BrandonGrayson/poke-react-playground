@@ -66,11 +66,28 @@ export default function PokeSearch() {
         type: ''
     })
     const [open, setOpen] = useState(false);
-    const [value, setValue] = useState<number | undefined>(undefined);
+    const [value, setValue] = useState<number | undefined>(0);
+    const [isCaught, setIsCaught] = useState(false);
+
     const handleClose = () => {
         setOpen(false);
     };
-    console.log('pokemon', pokemon)
+
+    const handleWasCaught = (event: React.ChangeEvent<HTMLInputElement>) => {
+        // setValue((event.target as HTMLInputElement).value);
+
+        const value = event.target.value
+
+        if (value === 'yes') {
+            setIsCaught(true)
+        } else if (value === 'no') {
+            setIsCaught(false)
+        }
+    
+    };
+
+    console.log('poke level', value)
+    console.log('was caught', isCaught)
     return (
         <>
             {
@@ -131,7 +148,7 @@ export default function PokeSearch() {
                     sx={{marginBottom: '20px'}}
                     >To add {pokemon?.name} to your Pokedex assign the level it was encountered at and whether it was successfully caught.
                     </DialogContentText>
-
+                    <Typography>Select Pokemon Level</Typography>
                     <NumberInput
                         aria-label="Demo number input"
                         placeholder="Pokemon Level"
@@ -142,8 +159,10 @@ export default function PokeSearch() {
                     <Typography sx={{marginTop: '20px'}}>Was Pokemon Caught</Typography>
                     <RadioGroup
                         aria-labelledby="demo-radio-buttons-group-label"
-                        defaultValue="female"
+                        defaultValue="true"
                         name="radio-buttons-group"
+                        value={value}
+                        onChange={handleWasCaught}
                     >
                         <FormControlLabel value="yes" control={<Radio />} label="Yes" />
                         <FormControlLabel value="no" control={<Radio />} label="No" />
