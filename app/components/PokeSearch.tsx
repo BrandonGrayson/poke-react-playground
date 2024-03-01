@@ -17,7 +17,8 @@ import {
     Radio,
     RadioGroup,
     FormControlLabel,
-    FormLabel
+    FormLabel,
+    Box
 } from "@mui/material"
 import { useState, forwardRef } from "react"
 import { searchPokemon } from "../actions"
@@ -65,7 +66,7 @@ export default function PokeSearch() {
         type: ''
     })
     const [open, setOpen] = useState(false);
-    const [value, setValue] = useState<number | undefined>(0);
+    const [value, setValue] = useState<number | undefined>(undefined);
     const handleClose = () => {
         setOpen(false);
     };
@@ -124,16 +125,21 @@ export default function PokeSearch() {
             //     },
             //   }}
             >
-                <DialogTitle>Add Pokemon To Pokedex</DialogTitle>
-                <DialogContentText>To add a Pokemon to your Pokedex fill out the level the pokemon was when you encountered it, and whether this pokemon was successfully caught.</DialogContentText>
+                <DialogTitle>Add {pokemon?.name} To Pokedex</DialogTitle>
                 <DialogContent>
+                    <DialogContentText
+                    sx={{marginBottom: '20px'}}
+                    >To add {pokemon?.name} to your Pokedex assign the level it was encountered at and whether it was successfully caught.
+                    </DialogContentText>
+
                     <NumberInput
                         aria-label="Demo number input"
                         placeholder="Pokemon Level"
                         value={value}
                         onChange={(event, val) => setValue(val)}
+                        
                     />
-                    <FormLabel id="demo-radio-buttons-group-label">Was Pokemon Caught</FormLabel>
+                    <Typography sx={{marginTop: '20px'}}>Was Pokemon Caught</Typography>
                     <RadioGroup
                         aria-labelledby="demo-radio-buttons-group-label"
                         defaultValue="female"
@@ -190,6 +196,7 @@ const StyledInputRoot = styled('div')(
     overflow: hidden;
     column-gap: 8px;
     padding: 4px;
+    width: 200px;
   
     &.${numberInputClasses.focused} {
       border-color: ${blue[400]};
