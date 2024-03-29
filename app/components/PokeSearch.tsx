@@ -17,8 +17,6 @@ import {
     Radio,
     RadioGroup,
     FormControlLabel,
-    FormLabel,
-    Box
 } from "@mui/material"
 import { useState, forwardRef } from "react"
 import { searchPokemon } from "../actions"
@@ -57,7 +55,6 @@ const NumberInput = forwardRef(function CustomNumberInput(
     );
 });
 
-
 export default function PokeSearch() {
     const [search, setSearch] = useState("")
     const [pokemon, setPokemon] = useState<PokemonResult | undefined>({
@@ -83,7 +80,7 @@ export default function PokeSearch() {
         } else if (value === 'no') {
             setIsCaught(false)
         }
-    
+
     };
 
     console.log('poke level', value)
@@ -145,8 +142,8 @@ export default function PokeSearch() {
                 <DialogTitle>Add {pokemon?.name} To Pokedex</DialogTitle>
                 <DialogContent>
                     <DialogContentText
-                    sx={{marginBottom: '20px'}}
-                    >To add {pokemon?.name} to your Pokedex assign the level it was encountered at and whether it was successfully caught.
+                        sx={{ marginBottom: '20px' }}
+                    >To add {pokemon?.name} to your Pokedex assign the level it was encountered at, and whether it was successfully caught.
                     </DialogContentText>
                     <Typography>Select Pokemon Level</Typography>
                     <NumberInput
@@ -154,9 +151,9 @@ export default function PokeSearch() {
                         placeholder="Pokemon Level"
                         value={value}
                         onChange={(event, val) => setValue(val)}
-                        
+
                     />
-                    <Typography sx={{marginTop: '20px'}}>Was Pokemon Caught</Typography>
+                    <Typography sx={{ marginTop: '20px' }}>Was Pokemon Caught</Typography>
                     <RadioGroup
                         aria-labelledby="demo-radio-buttons-group-label"
                         defaultValue="true"
@@ -171,7 +168,14 @@ export default function PokeSearch() {
                 </DialogContent>
                 <DialogActions>
                     <Button onClick={handleClose}>Cancel</Button>
-                    <Button variant="contained">Add Pokemon To Pokedex</Button>
+                    <Button
+                        variant="contained"
+                        onClick={async () => {
+                        // const session = AddPokemon()
+                        // console.log('session', session)
+                        }}
+                    >Add Pokemon To Pokedex
+                    </Button>
                 </DialogActions>
             </Dialog>
         </>
