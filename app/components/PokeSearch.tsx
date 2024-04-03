@@ -31,6 +31,7 @@ import {
 } from '@mui/base/Unstable_NumberInput';
 import { styled } from '@mui/system';
 import * as React from 'react';
+import { RequestCookie } from "next/dist/compiled/@edge-runtime/cookies"
 
 const NumberInput = forwardRef(function CustomNumberInput(
     props: NumberInputProps,
@@ -58,7 +59,11 @@ const NumberInput = forwardRef(function CustomNumberInput(
     );
 });
 
-export default function PokeSearch() {
+interface PokeSearchProps {
+    session: any
+}
+
+export default function PokeSearch({session}: PokeSearchProps) {
     const [search, setSearch] = useState("")
     const [apiPokemon, setApiPokemon] = useState<PokemonResult >({
         name: '',
@@ -66,7 +71,6 @@ export default function PokeSearch() {
         type: ''
     })
     const [open, setOpen] = useState(false);
-    // const [value, setValue] = useState<number | undefined>(0);
     const [userPokemon, setUserPokemon] = useState<Pokemon>({
         name: '',
         type: '',
@@ -80,6 +84,8 @@ export default function PokeSearch() {
     const handleClose = () => {
         setOpen(false);
     };
+
+
 
     return (
         <>
@@ -228,8 +234,10 @@ export default function PokeSearch() {
                                 image: apiPokemon.image,
                                 name: apiPokemon.name,
                                 type: apiPokemon.type
+                                
                             })
                             console.log('user', userPokemon)
+                            console.log('session add pokemon', session)
                         }}
                     >Add Pokemon To Pokedex
                     </Button>

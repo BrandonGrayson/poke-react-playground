@@ -2,12 +2,14 @@
 import { Box, Typography, TextField, Button, Stack } from "@mui/material"
 import { useState } from "react"
 import { userLogin } from "../actions"
+import { useRouter } from 'next/navigation'
 
 
 export default function Login() {
     const [username, setUserName] = useState("")
     const [password, setPassword] = useState("")
     const [inputError, setInputError] = useState(false)
+    const router = useRouter()
 
     return (
         <Box sx={{width: '100vw', height: '100vh', display: 'flex', justifyContent: 'center', marginTop: '15vh'}} >
@@ -23,6 +25,8 @@ export default function Login() {
                     setInputError(true)
                 }
                  userLogin(username, password) 
+
+                 router.push('/')
                 
                 }}>
                 <Stack spacing={2}>

@@ -53,7 +53,7 @@ export const userLogin = async (username: string, password: string) => {
 
             cookies().set('session', session, { httpOnly: true })
 
-            redirect('/')
+            // redirect('/')
         }
     } catch (error) {
         console.log(error)
