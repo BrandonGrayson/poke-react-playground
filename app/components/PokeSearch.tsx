@@ -17,10 +17,13 @@ import {
     Radio,
     RadioGroup,
     FormControlLabel,
+    Box,
+    FormControl,
+    FormLabel,
 } from "@mui/material"
 import { useState, forwardRef } from "react"
 import { searchPokemon } from "../actions"
-import { PokemonResult } from "../schemas/pokemon"
+import { PokemonResult, Pokemon } from "../schemas/pokemon"
 import {
     Unstable_NumberInput as BaseNumberInput,
     NumberInputProps,
@@ -57,54 +60,30 @@ const NumberInput = forwardRef(function CustomNumberInput(
 
 export default function PokeSearch() {
     const [search, setSearch] = useState("")
-    const [pokemon, setPokemon] = useState<PokemonResult | undefined>({
+    const [apiPokemon, setApiPokemon] = useState<PokemonResult | undefined>({
         name: '',
         image: '',
         type: ''
     })
     const [open, setOpen] = useState(false);
-    const [value, setValue] = useState<number | undefined>(0);
-    const [isCaught, setIsCaught] = useState(false);
+    // const [value, setValue] = useState<number | undefined>(0);
+    const [userPokemon, setUserPokemon] = useState<Pokemon>({
+        name: '',
+        type: '',
+        level: 0,
+        caught: false,
+        image: '',
+        party: false,
+        user_id: null
+    })
 
     const handleClose = () => {
         setOpen(false);
     };
 
-    const handleWasCaught = (event: React.ChangeEvent<HTMLInputElement>) => {
-        // setValue((event.target as HTMLInputElement).value);
-
-        const value = event.target.value
-
-        if (value === 'yes') {
-            setIsCaught(true)
-        } else if (value === 'no') {
-            setIsCaught(false)
-        }
-
-    };
-
-    console.log('poke level', value)
-    console.log('was caught', isCaught)
     return (
         <>
-            {
-                pokemon?.name ?
-                    <Card sx={{ maxWidth: 345, marginTop: '20px' }}>
-                        <CardMedia
-                            sx={{ height: 140 }}
-                            image={pokemon.image}
-                            title="Pokemon"
-                        />
-                        <CardContent>
-                            <Typography>Name: {pokemon.name}</Typography>
-                            <Typography>Type: {pokemon.type}</Typography>
-                        </CardContent>
-                        <CardActions>
-                            <Button onClick={() => setOpen(true)} variant="contained">Add To Pokedex</Button>
-                        </CardActions>
-                    </Card>
-                    : null
-            }
+
             <Stack spacing={2} sx={{ marginTop: '20px', width: '400px' }}>
                 <TextField
                     value={search}
@@ -118,12 +97,66 @@ export default function PokeSearch() {
                     variant="contained"
                     onClick={async () => {
                         const pokeResults = await searchPokemon(search)
-                        setPokemon(pokeResults)
+                        setApiPokemon(pokeResults)
 
                     }}
                 >Poke Search
                 </Button>
+
+                <Box sx={{ marginTop: '20px' }}>
+                    {
+                        apiPokemon?.name ?
+                            <Card sx={{ maxWidth: 345, marginTop: '20px' }}>
+                                <CardMedia
+                                    sx={{ height: 140 }}
+                                    image={apiPokemon.image}
+                                    title="Pokemon"
+                                />
+                                <CardContent>
+                                    <Typography>Name: {apiPokemon.name}</Typography>
+                                    <Typography>Type: {apiPokemon.type}</Typography>
+                                </CardContent>
+                                <CardActions>
+                                    <Button onClick={() => setOpen(true)} variant="contained">Add To Pokedex</Button>
+                                </CardActions>
+                            </Card>
+                            : null
+                    }
+                </Box>
             </Stack>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
             <Dialog
                 open={open}
                 onClose={handleClose}
@@ -139,40 +172,58 @@ export default function PokeSearch() {
             //     },
             //   }}
             >
-                <DialogTitle>Add {pokemon?.name} To Pokedex</DialogTitle>
+                <DialogTitle>Add {apiPokemon?.name} To Pokedex</DialogTitle>
                 <DialogContent>
                     <DialogContentText
                         sx={{ marginBottom: '20px' }}
-                    >To add {pokemon?.name} to your Pokedex assign the level it was encountered at, and whether it was successfully caught.
+                    >To add {apiPokemon?.name} to your Pokedex assign the level it was encountered at, and whether it was successfully caught.
                     </DialogContentText>
                     <Typography>Select Pokemon Level</Typography>
                     <NumberInput
                         aria-label="Demo number input"
                         placeholder="Pokemon Level"
-                        value={value}
-                        onChange={(event, val) => setValue(val)}
+                        value={userPokemon.level}
+                        onChange={(event, val) => setUserPokemon({
+                            ...userPokemon,
+                            level: val
+                        })}
 
                     />
-                    <Typography sx={{ marginTop: '20px' }}>Was Pokemon Caught</Typography>
-                    <RadioGroup
-                        aria-labelledby="demo-radio-buttons-group-label"
-                        defaultValue="true"
-                        name="radio-buttons-group"
-                        value={value}
-                        onChange={handleWasCaught}
-                    >
-                        <FormControlLabel value="yes" control={<Radio />} label="Yes" />
-                        <FormControlLabel value="no" control={<Radio />} label="No" />
+                    <FormControl>
+                        <FormLabel sx={{ marginTop: '20px' }}>Was Pokemon Caught</FormLabel>
+                        <RadioGroup
+                            aria-labelledby="demo-radio-buttons-group-label"
+                            defaultValue="false"
+                            name="Was Pokemon Caught"
+                            value={userPokemon.caught}
+                            onChange={(event: React.ChangeEvent<HTMLInputElement>) => {
+                                if (event.target.value === 'true') {
+                                    setUserPokemon({
+                                        ...userPokemon,
+                                        caught: true
+                                    })
 
-                    </RadioGroup>
+                                } else if (event.target.value === 'false') {
+                                    setUserPokemon({
+                                        ...userPokemon,
+                                        caught: false
+                                    })
+                                }
+                            }}
+                        >
+                            <FormControlLabel value='true' control={<Radio />} label="True" />
+                            <FormControlLabel value='false' control={<Radio />} label="False" />
+                        </RadioGroup>
+                    </FormControl>
+
                 </DialogContent>
                 <DialogActions>
                     <Button onClick={handleClose}>Cancel</Button>
                     <Button
                         variant="contained"
                         onClick={async () => {
-                        // const session = AddPokemon()
-                        // console.log('session', session)
+                            // const session = AddPokemon()
+                            // console.log('session', session)
                         }}
                     >Add Pokemon To Pokedex
                     </Button>
