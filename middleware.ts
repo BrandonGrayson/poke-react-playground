@@ -8,6 +8,10 @@ export function middleware(request: NextRequest) {
         console.log('You must sign in')
         return Response.redirect(new URL('/login', request.url))
     }
+
+    // const res = NextResponse.next();
+
+    // res.cookies
 }
 
 export const config = {

@@ -60,7 +60,7 @@ const NumberInput = forwardRef(function CustomNumberInput(
 
 export default function PokeSearch() {
     const [search, setSearch] = useState("")
-    const [apiPokemon, setApiPokemon] = useState<PokemonResult | undefined>({
+    const [apiPokemon, setApiPokemon] = useState<PokemonResult >({
         name: '',
         image: '',
         type: ''
@@ -97,7 +97,7 @@ export default function PokeSearch() {
                     variant="contained"
                     onClick={async () => {
                         const pokeResults = await searchPokemon(search)
-                        setApiPokemon(pokeResults)
+                        if (pokeResults) setApiPokemon(pokeResults)
 
                     }}
                 >Poke Search
@@ -222,8 +222,14 @@ export default function PokeSearch() {
                     <Button
                         variant="contained"
                         onClick={async () => {
-                            // const session = AddPokemon()
-                            // console.log('session', session)
+                            
+                            setUserPokemon({
+                                ...userPokemon,
+                                image: apiPokemon.image,
+                                name: apiPokemon.name,
+                                type: apiPokemon.type
+                            })
+                            console.log('user', userPokemon)
                         }}
                     >Add Pokemon To Pokedex
                     </Button>
