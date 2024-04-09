@@ -31,7 +31,7 @@ import {
 } from '@mui/base/Unstable_NumberInput';
 import { styled } from '@mui/system';
 import * as React from 'react';
-import { RequestCookie } from "next/dist/compiled/@edge-runtime/cookies"
+import { addUserPokemon } from "../api/route"
 
 const NumberInput = forwardRef(function CustomNumberInput(
     props: NumberInputProps,
@@ -65,11 +65,11 @@ interface PokeSearchProps {
 
 export default function PokeSearch({session}: PokeSearchProps) {
     const [search, setSearch] = useState("")
-    const [apiPokemon, setApiPokemon] = useState<PokemonResult >({
-        name: '',
-        image: '',
-        type: ''
-    })
+    // const [apiPokemon, setApiPokemon] = useState<PokemonResult >({
+    //     name: '',
+    //     image: '',
+    //     type: ''
+    // })
     const [open, setOpen] = useState(false);
     const [userPokemon, setUserPokemon] = useState<Pokemon>({
         name: '',
@@ -78,13 +78,13 @@ export default function PokeSearch({session}: PokeSearchProps) {
         caught: false,
         image: '',
         party: false,
-        user_id: null
     })
 
     const handleClose = () => {
         setOpen(false);
     };
 
+    // console.log('user Pokemon', userPokemon)
 
 
     return (
@@ -103,7 +103,16 @@ export default function PokeSearch({session}: PokeSearchProps) {
                     variant="contained"
                     onClick={async () => {
                         const pokeResults = await searchPokemon(search)
-                        if (pokeResults) setApiPokemon(pokeResults)
+                        if (pokeResults) {
+                            setUserPokemon({
+                                ...userPokemon,
+                                name: pokeResults.name,
+                                image: pokeResults.image,
+                                type: pokeResults.type
+                            })
+                        }
+                        // if (pokeResults) setApiPokemon(pokeResults)
+                            
 
                     }}
                 >Poke Search
@@ -111,16 +120,16 @@ export default function PokeSearch({session}: PokeSearchProps) {
 
                 <Box sx={{ marginTop: '20px' }}>
                     {
-                        apiPokemon?.name ?
+                        userPokemon?.name ?
                             <Card sx={{ maxWidth: 345, marginTop: '20px' }}>
                                 <CardMedia
                                     sx={{ height: 140 }}
-                                    image={apiPokemon.image}
+                                    image={userPokemon.image}
                                     title="Pokemon"
                                 />
                                 <CardContent>
-                                    <Typography>Name: {apiPokemon.name}</Typography>
-                                    <Typography>Type: {apiPokemon.type}</Typography>
+                                    <Typography>Name: {userPokemon.name}</Typography>
+                                    <Typography>Type: {userPokemon.type}</Typography>
                                 </CardContent>
                                 <CardActions>
                                     <Button onClick={() => setOpen(true)} variant="contained">Add To Pokedex</Button>
@@ -178,11 +187,11 @@ export default function PokeSearch({session}: PokeSearchProps) {
             //     },
             //   }}
             >
-                <DialogTitle>Add {apiPokemon?.name} To Pokedex</DialogTitle>
+                <DialogTitle>Add {userPokemon?.name} To Pokedex</DialogTitle>
                 <DialogContent>
                     <DialogContentText
                         sx={{ marginBottom: '20px' }}
-                    >To add {apiPokemon?.name} to your Pokedex assign the level it was encountered at, and whether it was successfully caught.
+                    >To add {userPokemon?.name} to your Pokedex assign the level it was encountered at, and whether it was successfully caught.
                     </DialogContentText>
                     <Typography>Select Pokemon Level</Typography>
                     <NumberInput
@@ -228,16 +237,14 @@ export default function PokeSearch({session}: PokeSearchProps) {
                     <Button
                         variant="contained"
                         onClick={async () => {
-                            
-                            setUserPokemon({
-                                ...userPokemon,
-                                image: apiPokemon.image,
-                                name: apiPokemon.name,
-                                type: apiPokemon.type
-                                
-                            })
-                            console.log('user', userPokemon)
-                            console.log('session add pokemon', session)
+                            // console.log('session add pokemon', session.value)
+                            console.log('user Pokemon', userPokemon)
+                            const token = session.value
+
+                            addUserPokemon(userPokemon)
+                            // tokens are sent inside the headers
+
+                            // console.log('new Pokemon', new_pokemon)
                         }}
                     >Add Pokemon To Pokedex
                     </Button>

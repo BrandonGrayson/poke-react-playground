@@ -47,7 +47,7 @@ export const userLogin = async (username: string, password: string) => {
         if (response.ok) {
             const access_token: AccessToken = await response.json()
 
-            console.log('access Token', access_token)
+            // console.log('access Token', access_token)
 
             const session = access_token.access_token
 
@@ -72,7 +72,7 @@ export const searchPokemon = async (pokemon: string) => {
 
         const results = await response.json()
 
-        console.log('results', results)
+        // console.log('results', results)
 
         // extract the needed fields, name, type, image
         // create a type to represent the pokemon data I need returned from this api
@@ -82,8 +82,6 @@ export const searchPokemon = async (pokemon: string) => {
             type: results.types[0].type.name,
             image: results.sprites.back_default
         }
-
-        console.log('pokedata', pokeData)
 
         return pokeData
 

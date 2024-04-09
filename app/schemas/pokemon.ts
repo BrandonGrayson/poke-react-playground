@@ -11,5 +11,5 @@ export interface Pokemon {
     caught: boolean
     image: string
     party: boolean
-    user_id: number | null
+    // user_id: number | null
 }

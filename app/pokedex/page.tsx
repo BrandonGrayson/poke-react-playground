@@ -6,7 +6,7 @@ export default function Page() {
   const session = getSession();
   return (
     <div style={{display: 'flex', flexDirection: 'row'}}>
-      <PokeSearch session={session} />
+      <PokeSearch session={session}/>
       <PokeDex />
     </div>
   );
