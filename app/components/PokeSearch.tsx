@@ -84,9 +84,6 @@ export default function PokeSearch({session}: PokeSearchProps) {
         setOpen(false);
     };
 
-    // console.log('user Pokemon', userPokemon)
-
-
     return (
         <>
 
@@ -139,38 +136,6 @@ export default function PokeSearch({session}: PokeSearchProps) {
                     }
                 </Box>
             </Stack>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
             <Dialog
                 open={open}
@@ -237,14 +202,8 @@ export default function PokeSearch({session}: PokeSearchProps) {
                     <Button
                         variant="contained"
                         onClick={async () => {
-                            // console.log('session add pokemon', session.value)
-                            console.log('user Pokemon', userPokemon)
-                            const token = session.value
-
-                            addUserPokemon(userPokemon)
-                            // tokens are sent inside the headers
-
-                            // console.log('new Pokemon', new_pokemon)
+                           
+                            addUserPokemon(userPokemon, session)
                         }}
                     >Add Pokemon To Pokedex
                     </Button>
