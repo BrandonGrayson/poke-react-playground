@@ -7,9 +7,5 @@ export async function getSession() {
 
     if (!session) return null;
 
-    // const sessionValue = session.value
-
-    // console.log('SESSION VALUE', session)
-
     return session
 }

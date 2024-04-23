@@ -8,7 +8,7 @@ export default async function Page() {
   return (
     <div style={{display: 'flex', flexDirection: 'row'}}>
       <PokeSearch session={session}/>
-      <PokeDex />
+      <PokeDex session={session} />
     </div>
   );
 }

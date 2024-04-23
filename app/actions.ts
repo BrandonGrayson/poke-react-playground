@@ -28,7 +28,7 @@ export const newUser = async (username: string, password: string) => {
 }
 
 export const userLogin = async (username: string, password: string) => {
-    try {
+    try { 
         const response = await fetch("http://127.0.0.1:8000/login", {
             method: 'POST',
             mode: 'cors',
@@ -44,7 +44,6 @@ export const userLogin = async (username: string, password: string) => {
             throw Error('Could not fetch the data for that resource')
         }
 
-        
         const access_token: AccessToken = await response.json()
 
         const session = access_token.access_token
