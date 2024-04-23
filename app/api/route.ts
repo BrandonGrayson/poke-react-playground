@@ -28,7 +28,7 @@ export async function addUserPokemon(pokemon: Pokemon, token: string) {
 export async function getAllUsersPokemon(token: string) {
     try {
         // console.log('user token,', token)
-        const res = await fetch('http://127.0.0.1:8000/addPokemon', {
+        const res = await fetch('http://127.0.0.1:8000/getAllPokemon', {
             method: 'GET',
             mode: 'cors',
             cache: 'no-cache',

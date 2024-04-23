@@ -3,14 +3,15 @@
 import { DataGrid, GridRowsProp, GridColDef } from "@mui/x-data-grid";
 import { Box, Typography } from "@mui/material";
 import PokeSearch from "../PokeSearch";
+import { Pokemon } from "@/app/schemas/pokemon";
 
 // pokedex needs to know if a pokemon has been found ~ Update functionality
 
 interface PokedexProps {
-  session: string
+  pokemon: Pokemon
 }
 
-export default function PokeDex({session}: PokedexProps) {
+export default function PokeDex({pokemon}: PokedexProps) {
 
   const columns: GridColDef[] = [
     { field: "id", headerName: "ID" },
@@ -21,8 +22,6 @@ export default function PokeDex({session}: PokedexProps) {
     { field: "party", headerName: "Party" },
     { field: "image", headerName: "Image" },
   ];
-
-  
 
   return (
     <>
