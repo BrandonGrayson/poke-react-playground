@@ -14,9 +14,15 @@ export default function PokeDex({session}: PokedexProps) {
 
   const columns: GridColDef[] = [
     { field: "id", headerName: "ID" },
-    { field: "name", headerName: "Pokemon Name" },
-    { field: "encountered", headerName: "Encountered" },
+    { field: "name", headerName: "Name" },
+    { field: "type", headerName: "Type" },
+    { field: "level", headerName: "Level" },
+    { field: "caught", headerName: "Caught" },
+    { field: "party", headerName: "Party" },
+    { field: "image", headerName: "Image" },
   ];
+
+  
 
   return (
     <>
