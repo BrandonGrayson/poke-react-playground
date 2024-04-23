@@ -18,9 +18,9 @@ export default function PokeDex({ pokemon }: PokedexProps) {
     { field: "id", headerName: "ID" },
     { field: "name", headerName: "Name" },
     { field: "type", headerName: "Type" },
-    { field: "level", headerName: "Level" },
-    { field: "caught", headerName: "Caught" },
-    { field: "party", headerName: "Party" },
+    { field: "level", headerName: "Level",  editable: true},
+    { field: "caught", headerName: "Caught",  editable: true},
+    { field: "party", headerName: "Party",  editable: true },
     { field: "image", headerName: "Image" },
   ];
 
