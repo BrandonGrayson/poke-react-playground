@@ -12,7 +12,7 @@ export default async function Page() {
   return (
     <div style={{display: 'flex', flexDirection: 'row'}}>
       <PokeSearch session={session}/>
-      <PokeDex pokemon={pokemon} />
+      <PokeDex pokemon={pokemon} session={session}/>
     </div>
   );
 }

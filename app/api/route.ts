@@ -47,3 +47,30 @@ export async function getAllUsersPokemon(token: string) {
         console.log('error', error)
     }
 }
+
+export async function updateUserPokemon(token: string, id: string, pokemon: Pokemon) {
+    
+    console.log('update token', token)
+    console.log('id', id)
+    console.log('update pokemon', pokemon)
+    try {
+        const response = await fetch(`http://127.0.0.1:8000/updatePokemon/${id}`, {
+            method: 'PUT',
+            mode: 'cors',
+            cache: 'no-cache',
+            credentials: 'omit',
+            headers: {
+                "Content-Type": "application/json",
+                "Authorization": `Bearer ${token}`
+            },
+            body: JSON.stringify(pokemon)
+        })
+
+        const updatePokemon = await response.json()
+    
+        return updatePokemon
+    } catch (error) {
+        console.log('error', error)
+    }
+
+}
