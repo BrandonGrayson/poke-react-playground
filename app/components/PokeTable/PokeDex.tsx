@@ -1,11 +1,11 @@
 "use client";
 
-import { DataGrid, GridRowsProp, GridColDef, GridCellEditStopParams, MuiEvent, GridCellEditStopReasons } from "@mui/x-data-grid";
-import { Box, Typography } from "@mui/material";
+import { DataGrid, GridRowsProp, GridColDef, GridCellEditStopParams, MuiEvent, GridCellEditStopReasons, GridActionsCellItem } from "@mui/x-data-grid";
+import { Box, Stack, Typography } from "@mui/material";
 import { Pokemon } from "@/app/schemas/pokemon";
 import { useEffect } from "react";
 import { updateUserPokemon } from "@/app/api/route";
-
+import DeleteIcon from '@mui/icons-material/DeleteOutlined';
 // pokedex needs to know if a pokemon has been found ~ Update functionality
 
 interface PokedexProps {
@@ -15,6 +15,9 @@ interface PokedexProps {
 
 export default function PokeDex({ pokemon, session }: PokedexProps) {
 
+  // Inside the GridColDef array I need to define a field for actions
+  // which will have a getActions field that will  
+  // allow a user to delete a row if the row isineditmode === true
   const columns: GridColDef[] = [
     { field: "id", headerName: "ID" },
     { field: "name", headerName: "Name" },
@@ -23,6 +26,19 @@ export default function PokeDex({ pokemon, session }: PokedexProps) {
     { field: "caught", headerName: "Caught", editable: true, type: 'boolean' },
     { field: "party", headerName: "Party", editable: true, type: 'boolean' },
     { field: "image", headerName: "Image" },
+    { field: 'actions', type: "actions", headerName: 'Actions', width: 100, cellClassName: 'actions', getActions: ({id}) => {
+      // const idToDelete = id;
+      return [
+        <GridActionsCellItem
+        icon={<DeleteIcon />}
+        label="Delete"
+        onClick={() => {
+          console.log('id to be deleted', id)
+        }}
+        color="inherit"
+      />,
+      ]
+    }}
   ];
 
   const rows: GridRowsProp<Pokemon> = pokemon
@@ -36,10 +52,10 @@ export default function PokeDex({ pokemon, session }: PokedexProps) {
   // will need a route handler for sending the request
 
   return (
-    <>
+    <Stack spacing={2}>
       <Typography>PokeDex</Typography>
 
-      <Box sx={{ width: 600, height: 600 }}>
+      <Box sx={{ width: 800, height: 600 }}>
         <DataGrid
          rows={rows} 
          columns={columns} 
@@ -66,6 +82,6 @@ export default function PokeDex({ pokemon, session }: PokedexProps) {
          }}
         />
       </Box>
-    </>
+    </Stack>
   );
 }
