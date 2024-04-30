@@ -4,7 +4,7 @@ import { DataGrid, GridRowsProp, GridColDef, GridCellEditStopParams, MuiEvent, G
 import { Box, Stack, Typography } from "@mui/material";
 import { Pokemon } from "@/app/schemas/pokemon";
 import { useEffect } from "react";
-import { updateUserPokemon } from "@/app/api/route";
+import { deleteUserPokemon, updateUserPokemon } from "@/app/api/route";
 import DeleteIcon from '@mui/icons-material/DeleteOutlined';
 // pokedex needs to know if a pokemon has been found ~ Update functionality
 
@@ -34,6 +34,8 @@ export default function PokeDex({ pokemon, session }: PokedexProps) {
         label="Delete"
         onClick={() => {
           console.log('id to be deleted', id)
+          id = id.toString()
+          deleteUserPokemon(session, id)
         }}
         color="inherit"
       />,
