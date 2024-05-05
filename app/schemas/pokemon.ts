@@ -7,8 +7,12 @@ export interface PokemonResult {
 export interface Pokemon {
     name: string
     type: string
-    level: number | undefined
+    level: number | null
     caught: boolean
     image: string
     party: boolean
+}
+
+export interface PokedexPokemon extends Pokemon {
+    id: number
 }

@@ -23,7 +23,7 @@ import {
 } from "@mui/material"
 import { useState, forwardRef } from "react"
 import { searchPokemon } from "../actions"
-import { PokemonResult, Pokemon } from "../schemas/pokemon"
+import { Pokemon, PokedexPokemon } from "../schemas/pokemon"
 import {
     Unstable_NumberInput as BaseNumberInput,
     NumberInputProps,
@@ -61,15 +61,12 @@ const NumberInput = forwardRef(function CustomNumberInput(
 
 interface PokeSearchProps {
     session: any
+    setPokedexPokemon: React.Dispatch<React.SetStateAction<PokedexPokemon[]>>
+    pokedexPokemon: PokedexPokemon[]
 }
 
-export default function PokeSearch({session}: PokeSearchProps) {
+export default function PokeSearch({session, setPokedexPokemon, pokedexPokemon}: PokeSearchProps) {
     const [search, setSearch] = useState("")
-    // const [apiPokemon, setApiPokemon] = useState<PokemonResult >({
-    //     name: '',
-    //     image: '',
-    //     type: ''
-    // })
     const [open, setOpen] = useState(false);
     const [userPokemon, setUserPokemon] = useState<Pokemon>({
         name: '',
@@ -83,6 +80,12 @@ export default function PokeSearch({session}: PokeSearchProps) {
     const handleClose = () => {
         setOpen(false);
     };
+
+    console.log('poke search', pokedexPokemon)
+
+    React.useEffect(() => {
+        console.log('Poke Searchcomponent mounts')
+    }, [pokedexPokemon])
 
     return (
         <>
@@ -110,7 +113,6 @@ export default function PokeSearch({session}: PokeSearchProps) {
                         }
                         // if (pokeResults) setApiPokemon(pokeResults)
                             
-
                     }}
                 >Poke Search
                 </Button>
@@ -140,17 +142,6 @@ export default function PokeSearch({session}: PokeSearchProps) {
             <Dialog
                 open={open}
                 onClose={handleClose}
-            // PaperProps={{
-            //     component: 'form',
-            //     onSubmit: (event: React.FormEvent<HTMLFormElement>) => {
-            //       event.preventDefault();
-            //       const formData = new FormData(event.currentTarget);
-            //       const formJson = Object.fromEntries((formData as any).entries());
-            //       const email = formJson.email;
-            //       console.log(email);
-            //       handleClose();
-            //     },
-            //   }}
             >
                 <DialogTitle>Add {userPokemon?.name} To Pokedex</DialogTitle>
                 <DialogContent>
@@ -203,7 +194,13 @@ export default function PokeSearch({session}: PokeSearchProps) {
                         variant="contained"
                         onClick={async () => {
                            
-                            addUserPokemon(userPokemon, session)
+                            const newPokemon = await addUserPokemon(userPokemon, session)
+
+                            console.log('new Pokemon', newPokemon)
+
+                            setPokedexPokemon([...pokedexPokemon, newPokemon])
+
+                            handleClose()             
                         }}
                     >Add Pokemon To Pokedex
                     </Button>

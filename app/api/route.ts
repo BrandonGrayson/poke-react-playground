@@ -1,6 +1,6 @@
-import { Pokemon } from "../schemas/pokemon"
+import { Pokemon, PokedexPokemon } from "../schemas/pokemon"
 
-export async function addUserPokemon(pokemon: Pokemon, token: string) {
+export async function addUserPokemon(pokemon: Pokemon, token: string): Promise<PokedexPokemon> {
 
         try {
             // console.log('user token,', token)
@@ -22,10 +22,12 @@ export async function addUserPokemon(pokemon: Pokemon, token: string) {
 
         } catch (error) {
             console.log('error', error)
-        }
+
+            throw error
+        }    
 }
 
-export async function getAllUsersPokemon(token: string) {
+export async function getAllUsersPokemon(token: string):Promise<PokedexPokemon[]> {
     try {
         // console.log('user token,', token)
         const res = await fetch('http://127.0.0.1:8000/getAllPokemon', {
@@ -45,6 +47,7 @@ export async function getAllUsersPokemon(token: string) {
 
     } catch (error) {
         console.log('error', error)
+        throw error
     }
 }
 

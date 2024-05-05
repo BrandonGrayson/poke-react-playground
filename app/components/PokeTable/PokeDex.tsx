@@ -3,7 +3,7 @@
 import { DataGrid, GridRowsProp, GridColDef, GridCellEditStopParams, MuiEvent, GridCellEditStopReasons, GridActionsCellItem } from "@mui/x-data-grid";
 import { Box, Stack, Typography } from "@mui/material";
 import { Pokemon } from "@/app/schemas/pokemon";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { deleteUserPokemon, updateUserPokemon } from "@/app/api/route";
 import DeleteIcon from '@mui/icons-material/DeleteOutlined';
 // pokedex needs to know if a pokemon has been found ~ Update functionality
@@ -18,6 +18,8 @@ export default function PokeDex({ pokemon, session }: PokedexProps) {
   // Inside the GridColDef array I need to define a field for actions
   // which will have a getActions field that will  
   // allow a user to delete a row if the row isineditmode === true
+
+  
   const columns: GridColDef[] = [
     { field: "id", headerName: "ID" },
     { field: "name", headerName: "Name" },
@@ -32,10 +34,11 @@ export default function PokeDex({ pokemon, session }: PokedexProps) {
         <GridActionsCellItem
         icon={<DeleteIcon />}
         label="Delete"
-        onClick={() => {
+        onClick={async () => {
           console.log('id to be deleted', id)
           id = id.toString()
-          deleteUserPokemon(session, id)
+          const remainingPokemon = await deleteUserPokemon(session, id)
+          // setPokedexPokemon(pokedexPokemon.filter())
         }}
         color="inherit"
       />,
@@ -46,7 +49,7 @@ export default function PokeDex({ pokemon, session }: PokedexProps) {
   const rows: GridRowsProp<Pokemon> = pokemon
 
   useEffect(() => {
-
+    console.log('pokedex table mounts')
   }, [pokemon])
 
   console.log('rows', rows)
@@ -66,7 +69,7 @@ export default function PokeDex({ pokemon, session }: PokedexProps) {
             event.defaultMuiPrevented = true;
           }
         }}
-         processRowUpdate={(updatedRow, originalRow) => {
+         processRowUpdate={async (updatedRow, originalRow) => {
           console.log('updated row', updatedRow)
 
           const id = updatedRow.id
