@@ -75,7 +75,7 @@ export async function updateUserPokemon(token: string, id: string, pokemon: Poke
     }
 }
 
-export async function deleteUserPokemon(token: string, id: string) {
+export async function deleteUserPokemon(token: string, id: string):Promise<PokedexPokemon[]>  {
     
     try {
         const response = await fetch(`http://127.0.0.1:8000/delete/${id}`, {
@@ -93,6 +93,7 @@ export async function deleteUserPokemon(token: string, id: string) {
         return pokemon
     } catch (error) {
         console.log('error', error)
+        throw error
     }
 
 }

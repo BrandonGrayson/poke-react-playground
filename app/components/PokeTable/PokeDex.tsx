@@ -37,7 +37,7 @@ export default function PokeDex({ pokemon, session, setPokedexPokemon }: Pokedex
           console.log('id to be deleted', id)
           id = id.toString()
           const remainingPokemon = await deleteUserPokemon(session, id)
-          // setPokedexPokemon(pokedexPokemon.filter())
+          setPokedexPokemon(remainingPokemon)
         }}
         color="inherit"
       />,
