@@ -2,24 +2,23 @@
 
 import { DataGrid, GridRowsProp, GridColDef, GridCellEditStopParams, MuiEvent, GridCellEditStopReasons, GridActionsCellItem } from "@mui/x-data-grid";
 import { Box, Stack, Typography } from "@mui/material";
-import { Pokemon } from "@/app/schemas/pokemon";
-import { useEffect, useState } from "react";
+import { PokedexPokemon } from "@/app/schemas/pokemon";
+import { useEffect, Dispatch, SetStateAction } from "react";
 import { deleteUserPokemon, updateUserPokemon } from "@/app/api/route";
 import DeleteIcon from '@mui/icons-material/DeleteOutlined';
 // pokedex needs to know if a pokemon has been found ~ Update functionality
 
 interface PokedexProps {
-  pokemon: Pokemon[]
+  pokemon: PokedexPokemon[]
   session: string
+  setPokedexPokemon: Dispatch<SetStateAction<PokedexPokemon[]>>
 }
 
-export default function PokeDex({ pokemon, session }: PokedexProps) {
+export default function PokeDex({ pokemon, session, setPokedexPokemon }: PokedexProps) {
 
-  // Inside the GridColDef array I need to define a field for actions
-  // which will have a getActions field that will  
-  // allow a user to delete a row if the row isineditmode === true
+  // const rows: GridRowsProp<PokedexPokemon> = pokemon
 
-  
+  console.log('pokedex pokemon ->',pokemon)
   const columns: GridColDef[] = [
     { field: "id", headerName: "ID" },
     { field: "name", headerName: "Name" },
@@ -46,15 +45,17 @@ export default function PokeDex({ pokemon, session }: PokedexProps) {
     }}
   ];
 
-  const rows: GridRowsProp<Pokemon> = pokemon
+  
 
   useEffect(() => {
     console.log('pokedex table mounts')
   }, [pokemon])
 
-  console.log('rows', rows)
+  // console.log('rows', rows)
   // use on cell edit stop to send an update request to the api
   // will need a route handler for sending the request
+  
+  // Test updated POkemon function
 
   return (
     <Stack spacing={2}>
@@ -62,7 +63,7 @@ export default function PokeDex({ pokemon, session }: PokedexProps) {
 
       <Box sx={{ width: 800, height: 600 }}>
         <DataGrid
-         rows={rows} 
+         rows={pokemon} 
          columns={columns} 
          onCellEditStop={(params: GridCellEditStopParams, event: MuiEvent) => {
           if (params.reason === GridCellEditStopReasons.cellFocusOut) {
@@ -74,7 +75,7 @@ export default function PokeDex({ pokemon, session }: PokedexProps) {
 
           const id = updatedRow.id
 
-          const pokemon = {
+          const new_pokemon_info = {
             "name": updatedRow.name,
             "level": updatedRow.level,
             "type": updatedRow.type,
@@ -83,7 +84,12 @@ export default function PokeDex({ pokemon, session }: PokedexProps) {
             "party": updatedRow.party
           }
 
-          updateUserPokemon(session, id, pokemon)
+          const updatedPokemon = await updateUserPokemon(session, id, new_pokemon_info)
+
+          // loop through 
+          setPokedexPokemon(pokemon.map((pokemonRow) => (pokemonRow.id === updatedRow.id ? updatedPokemon : pokemonRow)))
+
+          return updatedPokemon
          }}
         />
       </Box>

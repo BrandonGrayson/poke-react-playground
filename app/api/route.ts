@@ -51,7 +51,7 @@ export async function getAllUsersPokemon(token: string):Promise<PokedexPokemon[]
     }
 }
 
-export async function updateUserPokemon(token: string, id: string, pokemon: Pokemon) {
+export async function updateUserPokemon(token: string, id: string, pokemon: Pokemon): Promise<PokedexPokemon> {
     
     try {
         const response = await fetch(`http://127.0.0.1:8000/updatePokemon/${id}`, {
@@ -66,13 +66,13 @@ export async function updateUserPokemon(token: string, id: string, pokemon: Poke
             body: JSON.stringify(pokemon)
         })
 
-        const updatePokemon = await response.json()
+        const updatePokemon: PokedexPokemon = await response.json()
     
         return updatePokemon
     } catch (error) {
         console.log('error', error)
+        throw error
     }
-
 }
 
 export async function deleteUserPokemon(token: string, id: string) {

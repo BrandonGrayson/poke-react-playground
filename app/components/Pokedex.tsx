@@ -19,7 +19,7 @@ export default function PokedexPage({ pokemon, session }: PokemonPageProps) {
         <div style={{ display: 'flex', flexDirection: 'row' }}>
             <PokeSearch session={session} setPokedexPokemon={setPokedexPokemon} pokedexPokemon={pokedexPokemon} />
             
-            <PokeDex pokemon={pokedexPokemon} session={session} />
+            <PokeDex pokemon={pokedexPokemon} session={session} setPokedexPokemon={setPokedexPokemon}/>
         </div>
     )
 }
