@@ -1,0 +1,27 @@
+#pokemon {
+    -webkit-text-stroke: 4px navy;
+}
+
+#subtitle1 {
+    -webkit-text-stroke: 1px navy;
+}
+
+@media (min-width: 769px) {
+    #sub-grid {
+        display: flex;
+        flex-direction: row;
+    }
+
+    #iframe-box {
+        margin-left: 18em;
+    }
+    #sub-header {
+        margin-top: 6em;
+    }
+}
+
+@media (max-width: 768px) {
+    #sub-header {
+        display: none;
+    }
+}

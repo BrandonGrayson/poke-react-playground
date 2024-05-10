@@ -45,8 +45,6 @@ export default function PokeDex({ pokemon, session, setPokedexPokemon }: Pokedex
     }}
   ];
 
-  
-
   useEffect(() => {
     console.log('pokedex table mounts')
   }, [pokemon])

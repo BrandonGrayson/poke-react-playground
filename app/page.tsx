@@ -1,10 +1,11 @@
 import { Nav } from "./components/Nav";
+import Homepage from "./components/Homepage";
 
 export default function IndexPage() {
   return (
     <>
     <Nav />
-    <p>Homepage</p>
+    <Homepage />
     </>
   );
 }
