@@ -9,7 +9,9 @@
 @media (min-width: 769px) {
 
     #pokedex-card {
-        width: 600px
+        width: 80%;
+        display: flex;
+        flex-direction: row;
     }
 
     #iframe {
@@ -31,6 +33,10 @@
 
     #home-grid {
         margin-top: 5em;
+    }
+
+    #poke-card-text {
+        font-size: 1.2em !important;
     }
 }
 
