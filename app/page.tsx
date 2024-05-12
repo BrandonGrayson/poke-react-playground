@@ -4,8 +4,8 @@ import Homepage from "./components/Homepage";
 export default function IndexPage() {
   return (
     <>
-    <Nav />
-    <Homepage />
+      <Nav />
+      <Homepage />
     </>
   );
 }
