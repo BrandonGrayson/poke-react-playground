@@ -11,6 +11,7 @@ export const Nav = () => {
         <Link href="/pokedex">PokeDex</Link>
         <Link href="/login">Login</Link>
         <Link href="/createUser">Create User</Link>
+        <Link href="/train">Train</Link>
       </Stack>
     </nav>
   );

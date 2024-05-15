@@ -24,6 +24,7 @@ export const newUser = async (username: string, password: string) => {
         redirect('/')
     } catch (error) {
         console.log('error', error)
+        throw error
     }
 }
 
@@ -52,6 +53,7 @@ export const userLogin = async (username: string, password: string) => {
         
     } catch (error) {
         console.log(error)
+        throw error
     }
 
 }
@@ -81,5 +83,26 @@ export const searchPokemon = async (pokemon: string) => {
 
     } catch (error) {
         console.log('error', error)
+        throw error
+    }
+}
+
+export const getPokemonForTraining = async (token: string) => {
+    try {
+        const response = await fetch('http://127.0.0.1:8000/pokemon/training', {
+            method: 'GET',
+            mode: 'cors',
+            cache: 'no-cache',
+            credentials: 'omit',
+            headers: {
+                "Content-Type": "application/json",
+                "Authorization": `Bearer ${token}`
+            },
+        })
+
+        return response
+    } catch (error) {
+        console.log('error', error)
+        throw error
     }
 }
