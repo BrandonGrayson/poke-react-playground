@@ -87,7 +87,7 @@ export const searchPokemon = async (pokemon: string) => {
     }
 }
 
-export const getPokemonForTraining = async (token: string) => {
+export const getPokemonForTraining = async (token: string | null) => {
     try {
         const response = await fetch('http://127.0.0.1:8000/pokemon/training', {
             method: 'GET',
@@ -100,7 +100,9 @@ export const getPokemonForTraining = async (token: string) => {
             },
         })
 
-        return response
+        const data = await response.json()
+
+        return data
     } catch (error) {
         console.log('error', error)
         throw error
