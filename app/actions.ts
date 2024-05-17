@@ -1,8 +1,9 @@
 "use server"
+
 import { AccessToken } from "./schemas/schemas"
 import { cookies } from 'next/headers'
 import { redirect } from "next/navigation"
-import { PokemonResult } from "./schemas/pokemon"
+import { PokedexPokemon, PokemonResult } from "./schemas/pokemon"
 
 export const newUser = async (username: string, password: string) => {
     try {
@@ -87,7 +88,7 @@ export const searchPokemon = async (pokemon: string) => {
     }
 }
 
-export const getPokemonForTraining = async (token: string | null) => {
+export const getPokemonForTraining = async (token: string | null): Promise<PokedexPokemon[]>=> {
     try {
         const response = await fetch('http://127.0.0.1:8000/pokemon/training', {
             method: 'GET',
