@@ -2,6 +2,7 @@ import { getSession } from "../lib/lib"
 import { getPokemonForTraining } from "../actions"
 import { Nav } from "../components/Nav"
 import PokeCard from "../components/PokeCard"
+import TrainReducer from "../components/Train"
 
 export default async function Train() {
     const token = await getSession()
@@ -12,6 +13,7 @@ export default async function Train() {
         <>
             <Nav />
             <PokeCard pokemon={pokemon} />
+            <TrainReducer pokemon={pokemon} />
         </>
     )
 }

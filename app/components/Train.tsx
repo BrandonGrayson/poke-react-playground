@@ -1,5 +1,8 @@
+'use client'
+
 import { useReducer } from "react"
 import { PokedexPokemon, Pokemon } from "../schemas/pokemon"
+import { Button } from "@mui/material";
 
 enum PokemonCountActionKind {
     INCREASEALL = "INCREASEALL"
@@ -18,26 +21,33 @@ function reducer (pokemon: PokedexPokemon[], action: PokemonAction) {
 
     switch (type) {
         case PokemonCountActionKind.INCREASEALL: {
-            pokemon.map(p => {
+            return pokemon.map(p => {
                 if (p.level !== null) {
-                    return p.level + 1
+                    return {...p, level: p.level + 1}
                 } else {
                     return p
                 }
             })
         }
 
+        // console.log('pokemon ', pokemon)
+
         default: 
             return pokemon
     }
 }
 
-export default function Train({pokemon}: TrainProps) { 
+export default function TrainReducer({pokemon}: TrainProps) { 
     const [state, dispatch] = useReducer(reducer, pokemon)
+    const action = { type:  PokemonCountActionKind.INCREASEALL};
+    const nextstate = reducer(pokemon, action)
+
+    console.log('pokemon next state', nextstate)
     
     return (
         <>
             <h1>Train</h1>
+            <Button onClick={() => dispatch({type: PokemonCountActionKind.INCREASEALL})}>Increase Level</Button>
         </>
     )
 }
