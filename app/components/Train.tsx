@@ -1,6 +1,6 @@
 'use client'
 
-import { useReducer } from "react"
+import { useEffect, useReducer } from "react"
 import { PokedexPokemon, Pokemon } from "../schemas/pokemon"
 import { Button } from "@mui/material";
 
@@ -30,8 +30,6 @@ function reducer (pokemon: PokedexPokemon[], action: PokemonAction) {
             })
         }
 
-        // console.log('pokemon ', pokemon)
-
         default: 
             return pokemon
     }
@@ -43,6 +41,12 @@ export default function TrainReducer({pokemon}: TrainProps) {
     const nextstate = reducer(pokemon, action)
 
     console.log('pokemon next state', nextstate)
+
+    // useEffect(() => {
+    //     const updatePokemonLevels = async () => {
+    //         const response = 
+    //     }
+    // }, [])
     
     return (
         <>

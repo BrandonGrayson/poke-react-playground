@@ -97,3 +97,26 @@ export async function deleteUserPokemon(token: string, id: string):Promise<Poked
     }
 
 }
+
+export async function trainAllUsersPokemon(token: string, pokemon: PokedexPokemon[]):Promise<PokedexPokemon[]> {
+
+    try {
+        const response = await fetch(`http://127.0.0.1:8000//pokemon/training/all`, {
+            method: 'POST',
+            mode: 'cors',
+            cache: 'no-cache',
+            credentials: 'omit',
+            headers: {
+                "Content-Type": "application/json",
+                "Authorization": `Bearer ${token}`,
+            },
+            body: JSON.stringify(pokemon)
+        })
+        const pokemonArray = await response.json()
+    
+        return pokemonArray
+    } catch (error) {
+        console.log('error', error)
+        throw error
+    }
+}
