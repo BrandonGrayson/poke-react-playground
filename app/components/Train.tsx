@@ -47,11 +47,19 @@ export default function TrainReducer({pokemon}: TrainProps) {
     //         const response = 
     //     }
     // }, [])
+
+    // loop over the pokemon and render a card for each pokemon
+    // 
     
     return (
         <>
             <h1>Train</h1>
             <Button onClick={() => dispatch({type: PokemonCountActionKind.INCREASEALL})}>Increase Level</Button>
+            {
+                pokemon.map((p) => {
+                    
+                })
+            }
         </>
     )
 }

@@ -1,11 +1,12 @@
 "use client";
 
 import Link from "next/link";
-import { Stack } from "@mui/material";
+import { Grid, Stack } from "@mui/material";
 
 export const Nav = () => {
   return (
-    <nav>
+    <Grid container>
+      <Grid item xs={12}>
       <Stack direction="row" spacing={2}>
         <Link href="/">Home</Link>
         <Link href="/pokedex">PokeDex</Link>
@@ -13,6 +14,8 @@ export const Nav = () => {
         <Link href="/createUser">Create User</Link>
         <Link href="/train">Train</Link>
       </Stack>
-    </nav>
+      </Grid>
+
+    </Grid>
   );
 };
