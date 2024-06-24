@@ -1,14 +1,16 @@
 'use client'
 
-import { Card, CardContent, CardMedia, Grid, Stack, Typography } from "@mui/material"
+import { Button, Card, CardActions, CardContent, CardMedia, Grid, Stack, Typography } from "@mui/material"
 import { PokedexPokemon } from "../schemas/pokemon"
+import { Dispatch, SetStateAction } from "react"
 
 interface PokeCardProps {
     pokemon: PokedexPokemon[]
+    isSelected: PokedexPokemon[]
+    SetIsSelected: Dispatch<SetStateAction<PokedexPokemon[]>>
 }
 
-
-export default function PokeCard({ pokemon }: PokeCardProps) {
+export default function PokeCard({ pokemon, isSelected, SetIsSelected }: PokeCardProps) {
     if (pokemon !== null) {
         return (
             <Grid container>
@@ -17,7 +19,7 @@ export default function PokeCard({ pokemon }: PokeCardProps) {
                         {
                             pokemon.map((pokeData) => {
                                 return (
-                                    <Card sx={{ maxWidth: '300px', marginBottom: '15px' }} >
+                                    <Card key={pokeData.id} sx={{ maxWidth: '300px', marginBottom: '15px' }} >
                                         <CardMedia
                                             component="img"
                                             alt="Pokemon"
@@ -30,6 +32,12 @@ export default function PokeCard({ pokemon }: PokeCardProps) {
                                             <Typography>{pokeData.type}</Typography>
                                             <Typography>{pokeData.level}</Typography>
                                         </CardContent>
+
+                                        <CardActions>
+                                            <Button variant="contained" onClick={() => {
+                                                SetIsSelected([...isSelected, pokeData])
+                                            }}>Select</Button>
+                                        </CardActions>
                                     </Card>
                                 )
                             })

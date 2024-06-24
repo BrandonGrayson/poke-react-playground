@@ -12,7 +12,6 @@ export default async function Train() {
     return (
         <>
             <Nav />
-            <PokeCard pokemon={pokemon} />
             <TrainReducer pokemon={pokemon} />
         </>
     )
