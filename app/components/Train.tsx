@@ -4,63 +4,94 @@ import { useEffect, useReducer, useState } from "react"
 import { PokedexPokemon, Pokemon } from "../schemas/pokemon"
 import { Button, Typography, Card, CardMedia, CardContent, CardActions, Stack} from "@mui/material";
 import PokeCard from "./PokeCard";
+import { getAllUsersPokemon, trainAllUsersPokemon } from "../api/route";
+
+interface initialStateType {
+    pokemon: PokedexPokemon[],
+    loading: boolean,
+    error: string | null
+}
 
 enum PokemonCountActionKind {
-    INCREASEALL = "INCREASEALL"
+    INCREASEALL = "INCREASEALL",
+    FETCH_SUCCESS = "FETCH_SUCCESS",
+    FETCH_FAILURE = 'FETCH_FAILURE'
 }
 
 interface TrainProps {
-    pokemon: PokedexPokemon[]
+    fetchedPokemon: PokedexPokemon[]
+    token: string | null
 }
 
 interface PokemonAction {
     type: PokemonCountActionKind;
+    payload?: PokedexPokemon[]
 }
 
-function reducer (pokemon: PokedexPokemon[], action: PokemonAction) {
-    const { type } = action;
+function reducer (state: initialStateType, action: PokemonAction): initialStateType {
+    const { type, payload } = action;
 
     switch (type) {
         case PokemonCountActionKind.INCREASEALL: {
-            return pokemon.map(p => {
-                if (p.level !== null) {
-                    return {...p, level: p.level + 1}
-                } else {
-                    return p
-                }
-            })
+            return {
+                ...state,
+                pokemon: state.pokemon.map(p => {
+                    if (p.level !== null) {
+                        return { ...p, level: p.level + 1 }
+                    } else {
+                        return p
+                    }
+                })
+            };
         }
 
         default: 
-            return pokemon
+            return state
     }
 }
 
-export default function TrainReducer({pokemon}: TrainProps) { 
-    const [state, dispatch] = useReducer(reducer, pokemon)
-    const action = { type:  PokemonCountActionKind.INCREASEALL};
-    const nextstate = reducer(pokemon, action)
+function createInitialState(fetchedPokemon: PokedexPokemon[]): initialStateType {
+
+    return {
+        pokemon: fetchedPokemon,
+        loading: false,
+        error: null
+    }
+}
+
+export default function TrainReducer({fetchedPokemon, token}: TrainProps) { 
+    // const [pokemon, setPokemon] = useState(fetchedPokemon)
+
+    const [state, dispatch] = useReducer(reducer, fetchedPokemon, createInitialState)
+    // const action = { type:  PokemonCountActionKind.INCREASEALL};
+    // const nextstate = reducer(fetchedPokemon, action)
     const [isSelected, SetIsSelected] = useState<PokedexPokemon[]>([])
+    
+    // console.log('pokemon next state', nextstate)
 
-    console.log('pokemon next state', nextstate)
+    // There needs to be a button to send pokemon updates to the db
+    // 
 
-    // useEffect(() => {
-    //     const updatePokemonLevels = async () => {
-    //         const response = 
-    //     }
-    // }, [])
 
-    // Users need to be able to select pokemon for training
-    // move the pokecard rendering into the train reducer component
-    // Add a button to the pokecard for selecting a pokemon
-    // after pokemon have been selected, there should be another button to send the new pokemon data to the db
-    // we'll have an isSelected array. This array will represent the pokemon that the user has selected to be trained.
     
     return (
         <>
-            <h1>Choose which pokemon should be trained</h1>
-            <PokeCard pokemon={pokemon} isSelected={isSelected} SetIsSelected={SetIsSelected} />
+            <Typography>Choose which pokemon should be trained</Typography>
+            <PokeCard pokemon={state.pokemon} isSelected={isSelected} SetIsSelected={SetIsSelected} />
+            <Stack direction="row" spacing={2}>
             <Typography>Pokemon Selected For Training</Typography>
+            <Button variant="contained" onClick={async () => {
+                if (token) {
+                    dispatch(
+                        {"type": PokemonCountActionKind.INCREASEALL},
+                    )
+                    
+                    // const updatedPokemon = await trainAllUsersPokemon(token, pokemon)
+                    // setPokemon(updatedPokemon)
+                }
+            }}>Train</Button>
+            </Stack>
+
             <Stack direction="row" spacing={2}>
             {
                 isSelected.map((pokeData) => {

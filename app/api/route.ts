@@ -27,7 +27,7 @@ export async function addUserPokemon(pokemon: Pokemon, token: string): Promise<P
         }    
 }
 
-export async function getAllUsersPokemon(token: string):Promise<PokedexPokemon[]> {
+export async function getAllUsersPokemon(token: string | null):Promise<PokedexPokemon[]> {
     try {
         // console.log('user token,', token)
         const res = await fetch('http://127.0.0.1:8000/getAllPokemon', {

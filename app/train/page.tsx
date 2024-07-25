@@ -12,7 +12,7 @@ export default async function Train() {
     return (
         <>
             <Nav />
-            <TrainReducer pokemon={pokemon} />
+            <TrainReducer fetchedPokemon={pokemon} token={token}/>
         </>
     )
 }

@@ -15,7 +15,9 @@ export default function PokeCard({ pokemon, isSelected, SetIsSelected }: PokeCar
         return (
             <Grid container>
                 <Grid item xs={12}>
-                    <Stack direction={{xs: 'column', lg: 'row'}} spacing={2}>
+                    {
+                        pokemon ? 
+                        <Stack direction={{xs: 'column', lg: 'row'}} spacing={2}>
                         {
                             pokemon.map((pokeData) => {
                                 return (
@@ -43,10 +45,10 @@ export default function PokeCard({ pokemon, isSelected, SetIsSelected }: PokeCar
                             })
                         }
                     </Stack>
+                    : null
+                    }
                 </Grid>
             </Grid>
-
-
         )
     }
 
